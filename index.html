@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>আমাদের টেলিগ্রাম বটে জয়েন করুন</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0f1c, #1a0f2e, #0f1a2e);
+            animation: bgRainbow 6s infinite alternate;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        @keyframes bgRainbow {
+            0% { background: linear-gradient(135deg, #0a0f1c, #1a0f2e, #0f1a2e); }
+            20% { background: linear-gradient(135deg, #2e0a1a, #1a2e0a, #0a1a2e); }
+            40% { background: linear-gradient(135deg, #1a0a2e, #2e1a0a, #0a2e1a); }
+            60% { background: linear-gradient(135deg, #2e2e0a, #0a2e2e, #2e0a2e); }
+            80% { background: linear-gradient(135deg, #0a2e2e, #2e0a2e, #2e2e0a); }
+            100% { background: linear-gradient(135deg, #ff0a0a30, #0aff0a30, #0a0aff30); }
+        }
+
+        .neon-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 998;
+            animation: neonFlash 2s infinite alternate;
+        }
+
+        @keyframes neonFlash {
+            0% { box-shadow: inset 0 0 30px rgba(255,0,255,0.2), 0 0 20px cyan; }
+            50% { box-shadow: inset 0 0 100px rgba(255,255,0,0.4), 0 0 50px magenta; }
+            100% { box-shadow: inset 0 0 150px rgba(0,255,255,0.5), 0 0 80px red; }
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .telegram-section {
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .telegram-logo {
+            display: inline-block;
+            cursor: pointer;
+            transition: 0.3s;
+            animation: logoPulse 2s infinite;
+        }
+
+        .telegram-logo:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 20px #0088cc);
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .telegram-logo svg {
+            width: 70px;
+            height: 70px;
+            filter: drop-shadow(0 0 8px #0088cc);
+        }
+
+        .telegram-text {
+            font-size: 1rem;
+            margin-top: 5px;
+            color: #88ccff;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #ffaa44, #ff44aa, #44ffaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 0.9rem;
+            color: #ddd;
+            margin-top: 8px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            padding: 10px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 50px;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            border-left: 4px solid #ffaa44;
+            border-right: 4px solid #ff44aa;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            justify-content: center;
+        }
+
+        /* প্লে বাটন কন্টেইনার */
+        .image-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.15);
+            position: relative; /* প্লে বাটনের পজিশন ঠিক করার জন্য */
+            animation: borderGlow 2s infinite alternate;
+        }
+
+        /* ছবির ওপরের প্লে বাটন ডিজাইন */
+        .image-card::after {
+            content: '▶';
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid white;
+            color: white;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 5;
+            transition: 0.3s;
+            backdrop-filter: blur(2px);
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .image-card:hover::after {
+            background: rgba(255, 255, 255, 0.6);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        @keyframes borderGlow {
+            from { border-color: rgba(255,100,100,0.3); box-shadow: 0 0 5px rgba(255,0,0,0.2); }
+            to { border-color: rgba(100,255,100,0.7); box-shadow: 0 0 20px rgba(0,255,0,0.4); }
+        }
+
+        .image-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #ffaa44;
+            box-shadow: 0 0 30px #ffaa44;
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.8); /* ভিডিওর ভাব আনার জন্য একটু অন্ধকার করা */
+        }
+
+        .card-title {
+            text-align: center;
+            padding: 12px;
+            background: rgba(0,0,0,0.7);
+            color: #ffdd99;
+            font-weight: bold;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 30px;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 700px) {
+            .image-grid { gap: 15px; }
+            .image-card img { height: 160px; }
+            .hero h1 { font-size: 1.2rem; }
+            .section-title { font-size: 1.2rem; }
+            .image-card::after { width: 45px; height: 45px; font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="neon-overlay"></div>
+
+<div class="container">
+    <div class="telegram-section">
+        <div class="telegram-logo" id="telegramBtn">
+            <svg viewBox="0 0 24 24" fill="white" width="70" height="70">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.66-.35-1.02.22-1.61.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.2-.04-.29-.02-.12.03-1.98 1.26-5.59 3.7-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.84-.27-1.51-.41-1.45-.87.03-.24.36-.48 1-.73 3.94-1.71 6.57-2.84 7.88-3.39 3.75-1.57 4.53-1.84 5.04-1.85.11 0 .36.03.52.19.14.14.17.33.19.51-.01.09-.02.18-.04.27z"/>
+            </svg>
+            <div class="telegram-text">📢 বাংলাদেশ এবং অন্যান্য ভাইরাল সব ভিডিও দেখতে চাইলে আমাদের টেলিগ্রামে জয়েন করুন</div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>✨ ভাইরাল সব ভিডিও ✨</h1>
+        <p>আমাদের কাছে সকল ভিডিওর লিংক পেয়ে যাবেন 👇</p>
+    </div>
+
+    <div class="section">
+        <div style="text-align: center;">
+            <div class="section-title">🇧🇩 Bangladeshi Video</div>
+        </div>
+        <div class="image-grid" id="section1"></div>
+    </div>
+
+    <div class="section">
+        <div style="text-align: center;">
+            <div class="section-title">🇬🇧 English Video</div>
+        </div>
+        <div class="image-grid" id="section2"></div>
+    </div>
+
+    <div class="section">
+        <div style="text-align: center;">
+            <div class="section-title">Web Series Video </div>
+        </div>
+        <div class="image-grid" id="section3"></div>
+    </div>
+
+    <footer>
+        বাংলাদেশ এবং অন্যান্য যে কোনো দেশের ভিডিও দেখতে চাইলে সবার উপরে থাকা টেলিগ্রাম চ্যানেলে জয়েন করুন
+    </footer>
+</div>
+
+<script>
+    const sectionsData = [
+        { 
+            name: "section1",
+            images: [
+                { url: "https://i.ibb.co.com/k7mjXSC/Screenshot-2026-04-14-15-10-23-87-4079e20a3332ff1979b45f43e9e5241a.jpg", link: "https://omg10.com/4/9717825", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" },
+                { url: "https://i.ibb.co.com/mCxzV8JX/1776137740830.jpg", link: "https://omg10.com/4/9429975", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" },
+                { url: "https://i.ibb.co.com/nN4WLWBb/1776138057160.jpg", link: "https://video-zone.pages.dev", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" },
+                { url: "https://i.ibb.co.com/fdbMPxS4/1776138101511.jpg", link: "https://bacchadervideo.pages.dev", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" },
+                { url: "https://i.ibb.co.com/3YVBZxSk/IMG-20260414-094510.jpg", link: "https://omg10.com/4/9446627", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" },
+                { url: "https://i.ibb.co.com/xq6gzxbj/IMG-20260414-094538.jpg", link: "https://omg10.com/4/9717825", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" }
+            ]
+        },
+        { 
+            name: "section2",
+            images: [
+                { url: "https://i.ibb.co.com/Mk4vXstB/images.jpg", link: "https://omg10.com/4/9429975", title: "Click in the middle of the picture" },
+                { url: "https://i.ibb.co.com/3JsHqzB/images-1.jpg", link: "https://video-zone.pages.dev", title: "Click in the middle of the picture" },
+                { url: "https://i.ibb.co.com/7d00DKHt/images-2.jpg", link: "https://omg10.com/4/9717825", title: "Click in the middle of the picture" },
+                { url: "https://i.ibb.co.com/5xJjqXrK/images-3.jpg", link: "https://omg10.com/4/9429975", title: "Click in the middle of the picture" },
+                { url: "https://i.ibb.co.com/WNvb9TmJ/charles-dera-jpg.webp", link: "https://omg10.com/4/9717825", title: "Click in the middle of the picture" },
+                { url: "https://i.ibb.co.com/1YmWT914/images-4.jpg", link: "https://omg10.com/4/9717825", title: "Click in the middle of the picture" }
+            ]
+        },
+        { 
+            name: "section3",
+            images: [
+                { url: "https://i.ibb.co.com/V0RwmX6H/FB-IMG-1776162320321.jpg", link: "https://bacchadervideo.pages.dev", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন " },
+                { url: "https://i.ibb.co.com/Z6QtdxZh/FB-IMG-1776162330064.jpg", link: "https://omg10.com/4/9429975", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" },
+                { url: "https://i.ibb.co.com/2w1ZVV1/FB-IMG-1776162359086.jpg", link: "https://bacchadervideo.pages.dev", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" },
+                { url: "https://i.ibb.co.com/B5WnYR9f/FB-IMG-1776162399042.jpg", link: "https://omg10.com/4/9446627", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" },
+                { url: "https://i.ibb.co.com/v6GDB9PK/FB-IMG-1776162413906.jpg", link: "https://omg10.com/4/9429975", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" },
+                { url: "https://i.ibb.co.com/nqTQQDgG/FB-IMG-1776162483095.jpg", link: "https://bacchadervideo.pages.dev", title: "ভিডিও দেখতে ছবির মাঝখানে ক্লিক করুন" }
+            ]
+        }
+    ];
+
+    function loadAllSections() {
+        sectionsData.forEach(section => {
+            const container = document.getElementById(section.name);
+            if(!container) return;
+            
+            section.images.forEach((img, idx) => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                card.setAttribute('data-link', img.link);
+                
+                const image = document.createElement('img');
+                image.src = img.url;
+                image.alt = img.title;
+                
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'card-title';
+                titleDiv.textContent = `${img.title}`;
+                
+                card.appendChild(image);
+                card.appendChild(titleDiv);
+                
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const link = card.getAttribute('data-link');
+                    if(link) window.open(link, '_blank');
+                });
+                
+                container.appendChild(card);
+            });
+        });
+    }
+
+    const telegramBtn = document.getElementById('telegramBtn');
+    telegramBtn.addEventListener('click', () => {
+        window.open('https://t.me/Xhamster_Full_Video_Link_Bot', '_blank');
+    });
+
+    let redirectTimeout;
+    function startAutoRedirect() {
+        redirectTimeout = setTimeout(() => {
+            window.location.href = 'https://omg10.com/4/9717825';
+        }, 6000); 
+    }
+
+    setInterval(() => {
+        const neon = document.querySelector('.neon-overlay');
+        if(neon) {
+            const hue1 = Math.random() * 360;
+            const hue2 = (hue1 + 120) % 360;
+            neon.style.boxShadow = `inset 0 0 120px hsla(${hue1}, 100%, 50%, 0.3), 0 0 70px hsla(${hue2}, 100%, 50%, 0.2)`;
+        }
+    }, 800);
+
+    loadAllSections();
+    startAutoRedirect();
+
+    window.addEventListener('beforeunload', () => {
+        if(redirectTimeout) clearTimeout(redirectTimeout);
+    });
+</script>
+
+</body>
+</html>
